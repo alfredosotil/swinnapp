@@ -1,0 +1,169 @@
+@import url(https://fonts.googleapis.com/css?family=Architects+Daughter|Chewy|Merriweather|Open+Sans:400,700italic|Signika|Tinos|Volkhov|Iceland);
+
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    /*    margin: 0 auto -60px;
+        padding: 0 0 60px;*/
+}
+
+.wrap > .container {
+    padding: 10px 15px 20px;
+    height: 100%;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+/**************************************/
+
+
+.loading-personalizado {
+    background-image: url(../img/loader.GIF);
+    background-size: 62px 64px;
+    background-repeat: no-repeat;
+    width: 62px;
+    height: 64px;
+}
+
+DIV#content DIV.compactRadioGroup {
+    /*padding-left: 0px;*/
+}
+
+DIV#content .compactRadioGroup LABEL,
+DIV#content .compactRadioGroup INPUT {
+    display: inline;
+}
+
+#logo
+{
+    /*margin-top: 60px;*/
+    background: url(../img/rubikcube.png) no-repeat bottom center scroll;
+    background-size: 100px 102px;
+    width: 100px;
+    height: 102px;
+    /*    padding: 10px 20px;
+        margin-top: 20px;*/
+    /*margin-left: 20px;*/
+    /*    font-size: 200%;*/
+}
+
+#swinnsolution
+{
+    background: url(../img/logo3.png) no-repeat bottom center scroll;
+    background-size: 40px 42px;
+    width: 40px;
+    height: 42px;
+    /*    padding: 10px 20px;
+        margin-top: 20px;*/
+    /*margin-left: 20px;*/
+    /*    font-size: 200%;*/
+}
+
+#user-logued{
+    /*padding-top: 35px;*/
+    padding-left: 30px;
+}
+
+.app
+{
+    /*font-family: 'Architects Daughter', cursive;*/
+    /*font-family: 'Chewy', cursive;*/
+    /*font-family: 'Merriweather', serif;*/
+    /*font-family: 'Open Sans', sans-serif;*/
+    font-family: 'Signika', sans-serif;
+    /*font-family: 'Tinos', serif;*/
+    /*font-family: 'Volkhov', serif;*/
+    /*font-family: 'Iceland', cursive;*/
+    /**/
+}
+
+.module
+{
+    /*font-family: 'Chewy', cursive;*/
+}
+
+.footer-elastic {
+    position: relative;
+    /*height: 60px;*/
+    /*bottom: 0;*/
+    /*right: 7.5%;*/
+    width: 100%;    
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding-top: 5px;
+    padding-right: 6px;
+    
+    
+}
