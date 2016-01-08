@@ -15,7 +15,12 @@ use yii\widgets\DetailView;
             'label',
             'description',
             'controller',
-            'active',
+            [
+                'label' => 'Active',
+                'type' => 'html',
+                'format' => 'raw',
+                'value' => ($model->active == 1)?'<span class="label label-success">Yes</span>':'<span class="label label-danger">No</span>',
+            ],
             'type_id',
         ],
     ]) ?>
