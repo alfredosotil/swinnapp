@@ -4,7 +4,7 @@ USE `swinn`;
 --
 -- Host: localhost    Database: swinn
 -- ------------------------------------------------------
--- Server version	5.6.25
+-- Server version	5.6.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,12 +28,12 @@ CREATE TABLE `access` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `profile_id` int(11) NOT NULL,
   `module_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`module_id`,`profile_id`),
   KEY `fk_access_profile1_idx` (`profile_id`),
   KEY `fk_access_module1_idx` (`module_id`),
   CONSTRAINT `fk_access_module1` FOREIGN KEY (`module_id`) REFERENCES `module` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_access_profile1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,8 +42,65 @@ CREATE TABLE `access` (
 
 LOCK TABLES `access` WRITE;
 /*!40000 ALTER TABLE `access` DISABLE KEYS */;
-INSERT INTO `access` (`id`, `profile_id`, `module_id`) VALUES (2,1,2),(3,1,3),(4,1,1),(5,1,4),(6,1,5),(7,2,1),(8,2,2),(9,1,6);
 /*!40000 ALTER TABLE `access` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detailproducts`
+--
+
+DROP TABLE IF EXISTS `detailproducts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detailproducts` (
+  `id` int(11) NOT NULL,
+  `comment` varchar(200) DEFAULT NULL,
+  `order_id` int(11) NOT NULL DEFAULT '0',
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`order_id`,`product_id`),
+  KEY `fk_detail_order1_idx` (`order_id`),
+  KEY `fk_detailproducts_product1_idx` (`product_id`),
+  CONSTRAINT `fk_detail_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_detailproducts_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='\n';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detailproducts`
+--
+
+LOCK TABLES `detailproducts` WRITE;
+/*!40000 ALTER TABLE `detailproducts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detailproducts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detailservices`
+--
+
+DROP TABLE IF EXISTS `detailservices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detailservices` (
+  `id` int(11) NOT NULL,
+  `comment` varchar(200) DEFAULT NULL,
+  `order_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`order_id`,`service_id`),
+  KEY `fk_detailservices_order1_idx` (`order_id`),
+  KEY `fk_detailservices_service1_idx` (`service_id`),
+  CONSTRAINT `fk_detailservices_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_detailservices_service1` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detailservices`
+--
+
+LOCK TABLES `detailservices` WRITE;
+/*!40000 ALTER TABLE `detailservices` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detailservices` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -55,6 +112,7 @@ DROP TABLE IF EXISTS `ideas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ideas` (
   `id` int(11) NOT NULL,
+  `ideaname` varchar(50) NOT NULL,
   `ideadescription` varchar(500) NOT NULL,
   `ideaorder` int(11) NOT NULL,
   `ideaparent` int(11) DEFAULT NULL,
@@ -64,7 +122,7 @@ CREATE TABLE `ideas` (
   `iconfa` varchar(100) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`user_id`),
   KEY `fk_ideas_user1_idx` (`user_id`),
   CONSTRAINT `fk_ideas_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -77,6 +135,39 @@ CREATE TABLE `ideas` (
 LOCK TABLES `ideas` WRITE;
 /*!40000 ALTER TABLE `ideas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ideas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `path` varchar(200) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL DEFAULT '0',
+  `service_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`product_id`,`service_id`),
+  KEY `fk_images_product_idx` (`product_id`),
+  KEY `fk_images_service1_idx` (`service_id`),
+  CONSTRAINT `fk_images_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_images_service1` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -105,8 +196,59 @@ CREATE TABLE `module` (
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
-INSERT INTO `module` (`id`, `iconfa`, `label`, `description`, `controller`, `active`, `type_id`) VALUES (1,'fa-users','Users','Modulo de Usuarios','users',1,2),(2,'fa-tags','Access Profiles','Modulo de Perfiles de Acceso','profile',1,2),(3,'fa-cogs','Modules','Modulo de Controladores','module',1,2),(4,'fa-cog','Type','Module Type','type',1,2),(5,'fa-cog','State','Module State','state',1,2),(6,'fa-cubes','Ideas','This module will add your ideas to history adm.','ideas',1,2);
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL,
+  `creation` date DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `paid` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(5000) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `price` double DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -132,8 +274,34 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` (`id`, `name`, `description`, `category`, `active`) VALUES (1,'App Manager','Management Modules','app',1),(2,'Test','Test','app',1);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service`
+--
+
+DROP TABLE IF EXISTS `service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `description` varchar(5000) DEFAULT NULL,
+  `active` tinyint(4) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service`
+--
+
+LOCK TABLES `service` WRITE;
+/*!40000 ALTER TABLE `service` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -158,7 +326,6 @@ CREATE TABLE `state` (
 
 LOCK TABLES `state` WRITE;
 /*!40000 ALTER TABLE `state` DISABLE KEYS */;
-INSERT INTO `state` (`id`, `state`, `category`, `active`) VALUES (1,'active','user',1);
 /*!40000 ALTER TABLE `state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +351,6 @@ CREATE TABLE `type` (
 
 LOCK TABLES `type` WRITE;
 /*!40000 ALTER TABLE `type` DISABLE KEYS */;
-INSERT INTO `type` (`id`, `type`, `category`, `active`) VALUES (1,'admin','user',1),(2,'application','app',1);
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +376,7 @@ CREATE TABLE `user` (
   `profile_id` int(11) NOT NULL,
   `authKey` varchar(45) DEFAULT NULL,
   `accessToken` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`profile_id`,`state_id`,`type_id`),
   KEY `fk_usuario_tipo1_idx` (`type_id`),
   KEY `fk_usuario_estado1_idx` (`state_id`),
   KEY `fk_user_profile1_idx` (`profile_id`),
@@ -226,8 +392,40 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `names`, `surnames`, `email`, `username`, `password`, `active`, `lastupdate`, `type_id`, `state_id`, `sex`, `profile_id`, `authKey`, `accessToken`) VALUES (1,'Alfredo Antonio','Sotil Pastor','alfredosotil@gmail.com','asotilp','asotilp',1,'2015-08-10 21:29:24',1,1,'M',1,NULL,NULL),(2,'test','test','test','test','test',1,'2015-09-24 17:38:45',1,1,'M',1,'','');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `videos`
+--
+
+DROP TABLE IF EXISTS `videos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `videos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `path` varchar(200) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL DEFAULT '0',
+  `service_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`product_id`,`service_id`),
+  KEY `fk_videos_product1_idx` (`product_id`),
+  KEY `fk_videos_service1_idx` (`service_id`),
+  CONSTRAINT `fk_videos_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_videos_service1` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `videos`
+--
+
+LOCK TABLES `videos` WRITE;
+/*!40000 ALTER TABLE `videos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -247,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-19 14:13:53
+-- Dump completed on 2016-03-02 17:56:23
