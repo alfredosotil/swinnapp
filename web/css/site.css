@@ -1,4 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Architects+Daughter|Chewy|Merriweather|Open+Sans:400,700italic|Signika|Tinos|Volkhov|Iceland);
+/*@import url(../fonts/angelina.TTF);*/
+@font-face {
+    font-family: angelina;
+    src: url(../fonts/angelina.TTF);
+}
 
 html,
 body {
@@ -119,6 +124,19 @@ DIV#content .compactRadioGroup INPUT {
     /*    font-size: 200%;*/
 }
 
+#logoMagicMud
+{
+    /*margin-top: 60px;*/
+    background: url(../img/rubikcube.GIF) no-repeat bottom center scroll;
+    background-size: auto;//100px 102px;
+    width: 100px;
+    height: 102px;
+    /*    padding: 10px 20px;
+        margin-top: 20px;*/
+    /*margin-left: 20px;*/
+    /*    font-size: 200%;*/
+}
+
 #swinnsolution
 {
     background: url(../img/logo3.png) no-repeat bottom center scroll;
@@ -142,7 +160,8 @@ DIV#content .compactRadioGroup INPUT {
     /*font-family: 'Chewy', cursive;*/
     /*font-family: 'Merriweather', serif;*/
     /*font-family: 'Open Sans', sans-serif;*/
-    font-family: 'Signika', sans-serif;
+    /*font-family: 'Signika', sans-serif;*/
+    font-family: angelina;
     /*font-family: 'Tinos', serif;*/
     /*font-family: 'Volkhov', serif;*/
     /*font-family: 'Iceland', cursive;*/
