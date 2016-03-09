@@ -160,12 +160,15 @@ DIV#content .compactRadioGroup INPUT {
     /*font-family: 'Chewy', cursive;*/
     /*font-family: 'Merriweather', serif;*/
     /*font-family: 'Open Sans', sans-serif;*/
-    /*font-family: 'Signika', sans-serif;*/
-    font-family: angelina;
+    font-family: 'Signika', sans-serif;
     /*font-family: 'Tinos', serif;*/
     /*font-family: 'Volkhov', serif;*/
     /*font-family: 'Iceland', cursive;*/
     /**/
+}
+
+#title-app{
+    font-family: angelina;
 }
 
 .module
